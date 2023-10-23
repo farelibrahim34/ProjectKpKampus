@@ -34,6 +34,8 @@ class EditActivity : AppCompatActivity() {
         val foto3 = intent.getStringExtra("foto3")
         val nohp = intent.getStringExtra("nohp")
         val linkMaps = intent.getStringExtra("linkMaps")
+        val desc = intent.getStringExtra("desc")
+        val rate = intent.getStringExtra("rate")
         id = intent.getStringExtra("idData")!!.toInt()
 
         binding.etAddAlamatE.setText(alamat)
@@ -45,6 +47,8 @@ class EditActivity : AppCompatActivity() {
         binding.etLinkFotoTigaE.setText(foto3)
         binding.etLinkMaps.setText(linkMaps)
 
+        binding.etDesc.setText(desc)
+        binding.etRate.setText(rate)
         binding.btnEdit.setOnClickListener{
             editData()
 

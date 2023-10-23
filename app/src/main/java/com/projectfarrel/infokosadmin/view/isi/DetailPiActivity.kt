@@ -19,6 +19,7 @@ import com.projectfarrel.infokosadmin.databinding.ActivityDetailBinding
 import com.projectfarrel.infokosadmin.databinding.ActivityDetailPiBinding
 import com.projectfarrel.infokosadmin.model.ImageData
 import com.projectfarrel.infokosadmin.view.HomeActivity
+import com.projectfarrel.infokosadmin.view.MapsActivity
 import com.projectfarrel.infokosadmin.viewmodel.ViewModelDataKos
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -71,6 +72,7 @@ class DetailPiActivity : AppCompatActivity() {
         val kirimId = intent.getStringExtra("id")
         val linkMaps = intent.getStringExtra("linkMaps")
         val desc = intent.getStringExtra("desc")
+        val rate = intent.getStringExtra("rate")
 
 
 
@@ -104,8 +106,9 @@ class DetailPiActivity : AppCompatActivity() {
         binding.txtDesc.setText("Deskripsi  : "+desc)
 
         binding.imageView2.setOnClickListener {
-            val link = Intent(Intent.ACTION_VIEW, Uri.parse(linkMaps))
-            startActivity(link)
+            val intent = Intent(this, MapsActivity::class.java)
+            intent.putExtra("linkMaps",linkMaps)
+            startActivity(intent)
         }
 
         binding.btnNomorHp.setOnClickListener {
@@ -124,6 +127,8 @@ class DetailPiActivity : AppCompatActivity() {
             intent.putExtra("foto3",foto3)
             intent.putExtra("nohp",nohp)
             intent.putExtra("linkMaps",linkMaps)
+            intent.putExtra("desc",desc)
+            intent.putExtra("rate",rate)
             startActivity(intent)
         }
 
