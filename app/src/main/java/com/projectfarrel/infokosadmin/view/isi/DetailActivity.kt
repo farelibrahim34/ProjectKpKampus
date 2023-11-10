@@ -1,5 +1,6 @@
 package com.projectfarrel.infokosadmin.view.isi
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.text.Html
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.ContentInfoCompat
 import androidx.core.view.isGone
@@ -88,7 +90,7 @@ class DetailActivity : AppCompatActivity() {
         binding.txtAlamat.setText("Alamat   : "+alamat)
         binding.btnNomorHp.setText(nohp)
         binding.viewPagerHomeDetail
-        binding.txtDesc.setText("Deskripsi  : "+desc)
+        binding.txtDesc.setText("Deskripsi"+"\n"+desc)
         binding.imageView2.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
             intent.putExtra("linkMaps",linkMaps)
@@ -117,15 +119,25 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.btnHapus.setOnClickListener {
-            val viewModel = ViewModelProvider(this).get(ViewModelDataKos::class.java)
-            viewModel.callDeleteData(id)
-            viewModel.getDelDataKos().observe(this){
-                if (it != null){
-                    Toast.makeText(this, "Data Berhasil Dihapus", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
+
+
+            AlertDialog.Builder(this)
+                .setTitle("Hapus Data")
+                .setMessage("Apakah yakin menghapus data?")
+                .setPositiveButton("Ya"){ dialogInterface: DialogInterface, i: Int ->
+                    val viewModel = ViewModelProvider(this).get(ViewModelDataKos::class.java)
+                    viewModel.callDeleteData(id)
+                    viewModel.getDelDataKos().observe(this){
+                        if (it != null){
+                            Toast.makeText(this, "Data Berhasil Dihapus", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, HomeActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
                 }
-            }
+                .setNegativeButton("Tidak"){ dialogInterface: DialogInterface, i: Int ->
+                }
+                .show()
 
         }
         handler = Handler(Looper.getMainLooper())

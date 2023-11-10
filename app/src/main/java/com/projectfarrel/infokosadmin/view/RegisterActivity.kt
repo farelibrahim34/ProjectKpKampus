@@ -20,7 +20,7 @@ class RegisterActivity : AppCompatActivity() {
         dataLogin = DataStoreLogin(this)
 
         binding.ivBackDetail.setOnClickListener {
-            startActivity(Intent(this,HomeActivity::class.java))
+            startActivity(Intent(this,LoginActivity::class.java))
         }
 
 

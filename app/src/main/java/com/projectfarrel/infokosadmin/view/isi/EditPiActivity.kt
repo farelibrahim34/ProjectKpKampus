@@ -1,9 +1,11 @@
 package com.projectfarrel.infokosadmin.view.isi
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.projectfarrel.infokosadmin.R
 import com.projectfarrel.infokosadmin.databinding.ActivityEditBinding
@@ -51,9 +53,19 @@ class EditPiActivity : AppCompatActivity() {
 
 
         binding.btnEditPi.setOnClickListener{
-            editData()
 
-            Toast.makeText(this, "Data Berhasil Di Edit", Toast.LENGTH_SHORT).show()
+
+            AlertDialog.Builder(this)
+                .setTitle("Edit Data")
+                .setMessage("Apakah yakin ingin mengedit data?")
+                .setPositiveButton("Ya"){ dialogInterface: DialogInterface, i: Int ->
+                    editData()
+
+                    Toast.makeText(this, "Data Berhasil Di Edit", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Tidak"){ dialogInterface: DialogInterface, i: Int ->
+                }
+                .show()
 
         }
     }
